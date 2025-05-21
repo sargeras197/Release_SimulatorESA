@@ -1,0 +1,32 @@
+/* styles.css – навчальні «гарненькі» стилі */
+:root {
+  --edu-primary: #6f42c1;
+  --edu-accent: #fdd065;
+}
+
+.hover-lift {
+  transition: transform 0.2s ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.edu-card {
+  border-radius: 1rem;
+  border: none;
+  background-color: var(--bs-light);
+}
+
+.edu-icon {
+  font-size: 3rem;
+}
+
+.card.edu-card h3 {
+  color: var(--edu-primary);
+}
+
+.card.edu-card:hover h3 {
+  color: var(--edu-accent);
+}
