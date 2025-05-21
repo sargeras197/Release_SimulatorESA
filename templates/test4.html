@@ -1,0 +1,63 @@
+{% extends 'base.html' %} {% block title %}Тест 4: Фішинг{% endblock %} {% block
+content %}
+
+<div class="alert alert-primary">
+  <b>Ваша історія:</b> Ви — вчитель у школі. Кінець навчального року —
+  напружений час, ви отримуєте багато листів на свою робочу електронну скриньку.
+  Серед відправників — і колеги, і адміністрація, і навіть учні. У цей період
+  легко пропустити щось важливе або стати жертвою фішингу. Ваше завдання:
+  <b
+    >переглянути кілька листів і відмітити ті, які здаються вам підозрілими або
+    фішинговими.</b
+  >
+</div>
+
+<div class="alert alert-warning">
+  <b>УВАГА!</b> Це навчальна імітація фішингу. Не переходьте за підозрілими
+  посиланнями і не вводьте своїх реальних даних!
+</div>
+
+<h2>Тест 4: Виявлення фішингових листів</h2>
+<p>
+  Ознайомтеся з листами нижче та відмітьте ті, які вважаєте фішинговими
+  (фейковими). Після перевірки система дасть підказки!
+</p>
+
+<form method="post">
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> admin@school.edu.ua<br />
+      <b>Тема:</b> Важливе оновлення системи оцінювання<br />
+      <b>Текст:</b> Шановний(а) вчителю, для оновлення вашого акаунта терміново
+      перейдіть за <a href="#">цим посиланням</a> та введіть свої дані.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> director@school.edu.ua<br />
+      <b>Тема:</b> Підсумкова педрада<br />
+      <b>Текст:</b> Нагадуємо, що підсумкова педагогічна рада відбудеться у
+      п’ятницю о 15:00 в актовій залі.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="2" />
+      <b>Від:</b> pupil231@gmail.com<br />
+      <b>Тема:</b> Моя оцінка за контрольну<br />
+      <b>Текст:</b> Доброго дня! Я бачив(ла), що моя оцінка ще не виставлена,
+      могли б ви перевірити?
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="3" />
+      <b>Від:</b> info@admin-school.com<br />
+      <b>Тема:</b> Ваша пошта буде заблокована!<br />
+      <b>Текст:</b> Для уникнення блокування негайно авторизуйтеся
+      <a href="#">за цим посиланням</a>.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+{% if result %}
+<div class="alert alert-info mt-3">{{ result }}</div>
+{% endif %} {% if details %}
+<div class="alert alert-secondary mt-2">{{ details|safe }}</div>
+{% endif %} {% endblock %}

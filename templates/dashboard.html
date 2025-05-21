@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% block title %}Головна{% endblock %} {% block
+content %}
+<h2>Ласкаво просимо, {{ current_user.username }}!</h2>
+<p>Виберіть сторінку для тестування:</p>
+<ul>
+  <li><a href="{{ url_for('test1') }}">test1.html</a></li>
+  <li><a href="{{ url_for('test2') }}">test2.html</a></li>
+  <li><a href="{{ url_for('test3') }}">test3.html</a></li>
+  <li><a href="{{ url_for('test4') }}">test4.html</a></li>
+</ul>
+
+{% endblock %}
