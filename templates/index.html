@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Вхід до Release Simulator ESA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fa;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      .container {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 16px #ddd;
+        padding: 40px 28px;
+        max-width: 420px;
+        text-align: center;
+      }
+      h1 {
+        color: #293672;
+        margin-bottom: 16px;
+      }
+      p {
+        color: #444;
+        margin-bottom: 24px;
+      }
+      .rules-list {
+        text-align: left;
+        margin-bottom: 28px;
+      }
+      .rules-list li {
+        margin-bottom: 6px;
+      }
+      .login-btn {
+        display: inline-block;
+        background: #293672;
+        color: #fff;
+        padding: 10px 32px;
+        border-radius: 6px;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .login-btn:hover {
+        background: #4154a6;
+      }
+      .timer {
+        font-size: 1em;
+        color: #888;
+        margin-top: 14px;
+      }
+    </style>
+    <script>
+      let seconds = 60;
+      function updateTimer() {
+        if (seconds > 0) {
+          document.getElementById("timer").textContent =
+            "Ви будете автоматично перенаправлені до сторінки входу через " +
+            seconds +
+            " секунд.";
+          seconds--;
+        } else {
+          window.location.href = "{{ url_for('login') }}";
+        }
+      }
+      window.onload = function () {
+        updateTimer();
+        setInterval(updateTimer, 1000);
+      };
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Вітаємо у Release Simulator ESA</h1>
+      <p>Перед входом ознайомтесь із правилами користування цим проєктом:</p>
+      <ul class="rules-list">
+        <li>
+          Цей ресурс призначений для моделювання процесу випуску програмного
+          забезпечення.
+        </li>
+        <li>
+          Для роботи необхідна авторизація. Не передавайте свої облікові дані
+          стороннім особам.
+        </li>
+        <li>
+          Всі дії користувачів можуть бути зафіксовані для забезпечення безпеки.
+        </li>
+        <li>
+          Будь-які спроби несанкціонованого доступу до системи заборонені.
+        </li>
+        <li>
+          Використовуйте тільки офіційні браузери та не відключайте захист
+          сторінки.
+        </li>
+      </ul>
+      <a class="login-btn" href="{{ url_for('login') }}">Перейти до входу</a>
+
+      <p id="timer" class="timer"></p>
+    </div>
+  </body>
+</html>
