@@ -15,6 +15,175 @@ from flask_login import (
 )
 from werkzeug.security import generate_password_hash, check_password_hash
 
+# Питання для тесту з вибором відповіді
+QUIZ_QUESTIONS = [
+    {
+        "question": "Який протокол забезпечує захищене з'єднання у вебі?",
+        "options": ["HTTP", "FTP", "SSH", "HTTPS"],
+        "answer": 3,
+    },
+    {
+        "question": "Що таке фішинг?",
+        "options": [
+            "Збирання даних за допомогою шкідливих листів",
+            "Резервне копіювання інформації",
+            "Захист від вірусів",
+            "Процес шифрування повідомлень",
+        ],
+        "answer": 0,
+    },
+    {
+        "question": "Яке з перелічених є прикладом сильної автентифікації?",
+        "options": [
+            "Пароль з 4 цифр",
+            "Пароль та двофакторна перевірка",
+            "Єдине запитання безпеки",
+            "Лише ім'я користувача",
+        ],
+        "answer": 1,
+    },
+    {
+        "question": "Що робить брандмауер?",
+        "options": [
+            "Оптимізує швидкість мережі",
+            "Фільтрує небажаний мережевий трафік",
+            "Зберігає паролі користувачів",
+            "Створює резервні копії",
+        ],
+        "answer": 1,
+    },
+    {
+        "question": "Чим небезпечні загальнодоступні Wi-Fi мережі?",
+        "options": [
+            "Вони мають низьку швидкість",
+            "Можуть перехоплювати ваші дані",
+            "Вони недоступні у святкові дні",
+            "Викликають перевитрату мобільного трафіку",
+        ],
+        "answer": 1,
+    },
+    {
+        "question": "Яке розширення зазвичай мають виконувані файли у Windows?",
+        "options": [".txt", ".doc", ".exe", ".png"],
+        "answer": 2,
+    },
+    {
+        "question": "Який метод атаки націлений на вгадування пароля?",
+        "options": ["SQL Injection", "Brute Force", "Phishing", "DDoS"],
+        "answer": 1,
+    },
+    {
+        "question": "Що з перерахованого є прикладом соціальної інженерії?",
+        "options": [
+            "Використання складного шифрування",
+            "Обман користувача для отримання даних",
+            "Атака на сервер за допомогою ботнету",
+            "Регулярне оновлення ПЗ",
+        ],
+        "answer": 1,
+    },
+    {
+        "question": "Який принцип безпеки означає розмежування доступу?",
+        "options": ["Надійність", "Конфіденційність", "Резервування", "Принцип найменших привілеїв"],
+        "answer": 3,
+    },
+    {
+        "question": "Що таке двофакторна аутентифікація?",
+        "options": [
+            "Перевірка двох паролів",
+            "Використання пароля та додаткового підтвердження",
+            "Аутентифікація двох користувачів",
+            "Реєстрація на двох сайтах",
+        ],
+        "answer": 1,
+    },
+    {
+        "question": "Чому слід регулярно оновлювати програмне забезпечення?",
+        "options": [
+            "Щоб звільнити місце на диску",
+            "Щоб покращити захист від вразливостей",
+            "Щоб вимкнути брандмауер",
+            "Щоб зменшити використання пам'яті",
+        ],
+        "answer": 1,
+    },
+    {
+        "question": "Яке з наведеного є прикладом складного пароля?",
+        "options": ["123456", "password", "Qw!8_zR9", "qwerty"],
+        "answer": 2,
+    },
+    {
+        "question": "Що означає абревіатура VPN?",
+        "options": [
+            "Virtual Private Network",
+            "Very Personal Notebook",
+            "Visual Protocol Number",
+            "Verified Password Name",
+        ],
+        "answer": 0,
+    },
+    {
+        "question": "Яке з перерахованого допомагає уникнути зараження вірусом?",
+        "options": [
+            "Відкривати всі вкладення з листів",
+            "Використовувати антивірус і не запускати невідомі файли",
+            "Ніколи не вимикати комп'ютер",
+            "Видаляти системні файли",
+        ],
+        "answer": 1,
+    },
+    {
+        "question": "Чим корисне шифрування даних?",
+        "options": [
+            "Підвищує швидкість Інтернету",
+            "Дозволяє приховати інформацію від сторонніх",
+            "Зменшує вагу файлів",
+            "Видаляє старі дані",
+        ],
+        "answer": 1,
+    },
+    {
+        "question": "Як називається програма, що видає себе за легальну, але містить шкідливий код?",
+        "options": ["Черв'як", "Троян", "Антивірус", "Проксі"],
+        "answer": 1,
+    },
+    {
+        "question": "Що робить атака типу DDoS?",
+        "options": [
+            "Змінює права доступу користувачів",
+            "Блокує роботу сервера великою кількістю запитів",
+            "Шифрує всі файли на диску",
+            "Проводить фішингову розсилку",
+        ],
+        "answer": 1,
+    },
+    {
+        "question": "Який інструмент використовується для збереження паролів у зашифрованому вигляді?",
+        "options": ["Менеджер паролів", "Текстовий файл", "Блокнот", "Браузер"],
+        "answer": 0,
+    },
+    {
+        "question": "Який з перелічених варіантів є фактором автентифікації 'щось, що ви маєте'?",
+        "options": ["Пароль", "Скан відбитку пальця", "Смартфон з кодом", "Ім'я користувача"],
+        "answer": 2,
+    },
+    {
+        "question": "Що таке резервне копіювання даних?",
+        "options": [
+            "Процес видалення непотрібних файлів",
+            "Створення копії даних для відновлення",
+            "Шифрування інформації",
+            "Оновлення операційної системи",
+        ],
+        "answer": 1,
+    },
+    {
+        "question": "Яка команда в браузері дозволяє перевірити сертифікат сайту?",
+        "options": ["Ctrl+T", "Клікнути на замок у рядку адреси", "F5", "Alt+F4"],
+        "answer": 1,
+    },
+]
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "your_secret_key"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cybercrime.db"
@@ -68,6 +237,44 @@ def login():
 def dashboard():
     pages = ["test1.html", "test2.html", "test3.html"]
     return render_template("dashboard.html", pages=pages)
+
+
+@app.route("/practice")
+@login_required
+def practice():
+    return render_template("practice.html")
+
+
+@app.route("/theory")
+@login_required
+def theory():
+    return render_template("theory.html")
+
+
+@app.route("/quiz", methods=["GET", "POST"])
+@login_required
+def quiz():
+    score = None
+    if request.method == "GET":
+        session["start_quiz"] = time.time()
+    if request.method == "POST":
+        score = 0
+        for idx, q in enumerate(QUIZ_QUESTIONS):
+            answer = request.form.get(f"q{idx}")
+            if answer and int(answer) == q["answer"]:
+                score += 1
+        time_spent = time.time() - session.get("start_quiz", time.time())
+        log = TestLog(
+            user_id=current_user.id,
+            test_name="quiz",
+            attempts=1,
+            successes=score,
+            fails=len(QUIZ_QUESTIONS) - score,
+            time_spent=time_spent,
+        )
+        db.session.add(log)
+        db.session.commit()
+    return render_template("quiz.html", questions=QUIZ_QUESTIONS, score=score)
 
 
 @app.route("/admin")
