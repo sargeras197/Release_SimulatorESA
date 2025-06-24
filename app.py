@@ -70,6 +70,18 @@ def dashboard():
     return render_template("dashboard.html", pages=pages)
 
 
+@app.route("/practice")
+@login_required
+def practice():
+    return render_template("practice.html")
+
+
+@app.route("/theory")
+@login_required
+def theory():
+    return render_template("theory.html")
+
+
 @app.route("/admin")
 @login_required
 def admin_dashboard():
