@@ -84,7 +84,12 @@ QUIZ_QUESTIONS = [
     },
     {
         "question": "Який принцип безпеки означає розмежування доступу?",
-        "options": ["Надійність", "Конфіденційність", "Резервування", "Принцип найменших привілеїв"],
+        "options": [
+            "Надійність",
+            "Конфіденційність",
+            "Резервування",
+            "Принцип найменших привілеїв",
+        ],
         "answer": 3,
     },
     {
@@ -164,7 +169,12 @@ QUIZ_QUESTIONS = [
     },
     {
         "question": "Який з перелічених варіантів є фактором автентифікації 'щось, що ви маєте'?",
-        "options": ["Пароль", "Скан відбитку пальця", "Смартфон з кодом", "Ім'я користувача"],
+        "options": [
+            "Пароль",
+            "Скан відбитку пальця",
+            "Смартфон з кодом",
+            "Ім'я користувача",
+        ],
         "answer": 2,
     },
     {
@@ -390,7 +400,10 @@ def test2():
         db.session.commit()
     return render_template("test2.html", messages=guestbook)
 
+
 VALID_USERS = ["user_fake1", "user_fake2", "user_fake3"]
+
+
 def password_strength(password):
     length = len(password)
     score = 0
@@ -584,3 +597,8 @@ if __name__ == "__main__":
             db.session.add(admin)
             db.session.commit()
     app.run(debug=True)
+
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
