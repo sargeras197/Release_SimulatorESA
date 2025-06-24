@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask import session
 import time
 import re
+import os
+import json
 from datetime import datetime
 from models import db, User, TestLog  # <-- додай TestLog тут!
 from popular_passwords_600 import POPULAR_PASSWORDS_600
@@ -198,6 +200,26 @@ db.init_app(app)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 
+# File to store user credentials so they can be easily edited
+CRED_FILE = "credentials.json"
+
+
+def load_credentials():
+    """Load username/password hashes from the credentials file."""
+    if os.path.exists(CRED_FILE):
+        with open(CRED_FILE, "r", encoding="utf-8") as f:
+            try:
+                return json.load(f)
+            except json.JSONDecodeError:
+                return {}
+    return {}
+
+
+def save_credentials(creds):
+    """Persist credential dictionary back to the file."""
+    with open(CRED_FILE, "w", encoding="utf-8") as f:
+        json.dump(creds, f, ensure_ascii=False, indent=2)
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -209,14 +231,21 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        if User.query.filter_by(username=username).first():
+        creds = load_credentials()
+        if username in creds or User.query.filter_by(username=username).first():
             flash("Користувач вже існує")
             return redirect(url_for("register"))
-        new_user = User(
-            username=username, password_hash=generate_password_hash(password)
-        )
+
+        password_hash = generate_password_hash(password)
+        # Update file-based credentials
+        creds[username] = {"password_hash": password_hash, "is_admin": False}
+        save_credentials(creds)
+
+        # Also keep in the database for Flask-Login
+        new_user = User(username=username, password_hash=password_hash)
         db.session.add(new_user)
         db.session.commit()
+
         flash("Реєстрація успішна")
         return redirect(url_for("login"))
     return render_template("register.html")
@@ -227,8 +256,23 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        user = User.query.filter_by(username=username).first()
-        if user and check_password_hash(user.password_hash, password):
+
+        creds = load_credentials()
+        cred = creds.get(username)
+        user = None
+        if cred and check_password_hash(cred["password_hash"], password):
+            # Ensure corresponding DB user exists
+            user = User.query.filter_by(username=username).first()
+            if not user:
+                user = User(
+                    username=username,
+                    password_hash=cred["password_hash"],
+                    is_admin=cred.get("is_admin", False),
+                )
+                db.session.add(user)
+                db.session.commit()
+
+        if user:
             login_user(user)
             return redirect(
                 url_for("admin_dashboard" if user.is_admin else "dashboard")
@@ -584,16 +628,34 @@ def admin_report():
     )
 
 
+def initialize_credentials():
+    """Ensure credential file and database contain at least the admin user."""
+    creds = load_credentials()
+    changed = False
+    if "admin" not in creds:
+        creds["admin"] = {
+            "password_hash": generate_password_hash("admin"),
+            "is_admin": True,
+        }
+        changed = True
+    if changed:
+        save_credentials(creds)
+
+    # Sync users from credentials into DB
+    for username, data in creds.items():
+        if not User.query.filter_by(username=username).first():
+            db.session.add(
+                User(
+                    username=username,
+                    password_hash=data["password_hash"],
+                    is_admin=data.get("is_admin", False),
+                )
+            )
+    db.session.commit()
+
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-        # Додає адміністратора, якщо його ще нема
-        if not User.query.filter_by(username="admin").first():
-            admin = User(
-                username="admin",
-                password_hash=generate_password_hash("admin"),
-                is_admin=True,
-            )
-            db.session.add(admin)
-            db.session.commit()
+        initialize_credentials()
     app.run(debug=True)
