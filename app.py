@@ -177,11 +177,6 @@ QUIZ_QUESTIONS = [
         ],
         "answer": 1,
     },
-    {
-        "question": "Яка команда в браузері дозволяє перевірити сертифікат сайту?",
-        "options": ["Ctrl+T", "Клікнути на замок у рядку адреси", "F5", "Alt+F4"],
-        "answer": 1,
-    },
 ]
 
 app = Flask(__name__)
@@ -369,8 +364,6 @@ def test1():
 # XSS — пам'ятай, що це для навчання, тут реально вставляється raw HTML!
 guestbook = []
 
-guestbook = []
-
 
 @app.route("/test2.html", methods=["GET", "POST"])
 @login_required
@@ -397,18 +390,7 @@ def test2():
         db.session.commit()
     return render_template("test2.html", messages=guestbook)
 
-
-from popular_passwords_600 import POPULAR_PASSWORDS_600
-
 VALID_USERS = ["user_fake1", "user_fake2", "user_fake3"]
-
-
-from popular_passwords_600 import POPULAR_PASSWORDS_600
-import re
-
-VALID_USERS = ["user_fake1", "user_fake2", "user_fake3"]
-
-
 def password_strength(password):
     length = len(password)
     score = 0
