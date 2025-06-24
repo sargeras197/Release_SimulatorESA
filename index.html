@@ -67,7 +67,7 @@
             " секунд.";
           seconds--;
         } else {
-          window.location.href = "/login";
+          window.location.href = "{{ url_for('login') }}";
         }
       }
       window.onload = function () {
@@ -100,7 +100,8 @@
           сторінки.
         </li>
       </ul>
-      <a class="login-btn" href="templates/login.html">Перейти до входу</a>
+      <a class="login-btn" href="{{ url_for('login') }}">Перейти до входу</a>
+
       <p id="timer" class="timer"></p>
     </div>
   </body>

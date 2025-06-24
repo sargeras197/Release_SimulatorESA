@@ -342,7 +342,7 @@ def logout():
 
 @app.route("/")
 def index():
-    return redirect(url_for("login"))
+    return render_template("index.html")
 
 
 @app.route("/test1.html", methods=["GET", "POST"])
@@ -597,8 +597,3 @@ if __name__ == "__main__":
             db.session.add(admin)
             db.session.commit()
     app.run(debug=True)
-
-
-@app.route("/login")
-def login():
-    return render_template("login.html")
