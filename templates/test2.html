@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block title %}Тест 2: XSS (міжсайтовий скриптинг){%
+endblock %} {% block content %}
+<div class="alert alert-warning">
+  <b>УВАГА!</b> Це навчальна імітація XSS-атаки. Не вводьте справжніх даних!
+</div>
+<h2>Тест 2: XSS-атака</h2>
+<p>
+  Додайте свій коментар до гостьової книги. Спробуйте вставити JS-скрипт,
+  наприклад <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code>.
+</p>
+
+<form method="post">
+  <div class="mb-3">
+    <input
+      type="text"
+      name="message"
+      class="form-control"
+      placeholder="Ваш коментар або XSS-рядок"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Додати</button>
+</form>
+
+<hr />
+<h5>Гостьова книга:</h5>
+<ul class="list-group">
+  {% for msg in messages %}
+  <li class="list-group-item">{{ msg|safe }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

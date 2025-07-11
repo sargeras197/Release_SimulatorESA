@@ -1,0 +1,484 @@
+{% extends 'base.html' %} {% block title %}Тест 4: Фішинг{% endblock %} {% block
+content %}
+
+<div class="alert alert-warning">
+  <b>УВАГА!</b> Це навчальна імітація фішингу. Не переходьте за підозрілими
+  посиланнями і не вводьте своїх реальних даних!
+</div>
+
+<h2>Тест 4: Виявлення фішингових листів</h2>
+<p>
+  Ознайомтеся з трьома ситуаціями нижче та відмічайте фішингові листи у кожній.
+</p>
+
+<hr />
+<h4>Історія 1: Вчитель у школі</h4>
+<div class="alert alert-primary">
+  Ви — вчитель. Наприкінці навчального року отримуєте багато листів. Ваше
+  завдання: знайти фішингові.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="1" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> admin@school.edu.ua<br />
+      <b>Тема:</b> Оновлення системи оцінювання<br />
+      <b>Текст:</b> Перейдіть за <a href="#">посиланням</a> і введіть свої дані.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> pupil231@gmail.com<br />
+      <b>Тема:</b> Контрольна робота<br />
+      <b>Текст:</b> Чи могли б ви виставити оцінку?
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+
+<hr />
+<h4>Історія 2: ІТ-спеціаліст в офісі</h4>
+<div class="alert alert-primary">
+  Ви — ІТ-фахівець компанії. Щодня отримуєте багато технічних запитів. Визначте
+  потенційно небезпечні листи.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="2" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> hr@company.com<br />
+      <b>Тема:</b> Нові правила для пошти<br />
+      <b>Текст:</b> Ознайомтеся з новими правилами. <a href="#">Перейти</a>
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> it-admin@companny.com<br />
+      <b>Тема:</b> Термінова перевірка<br />
+      <b>Текст:</b> Ваша пошта буде заблокована.
+      <a href="#">Підтвердити</a> зараз!
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+
+<hr />
+<h4>Історія 3: Бухгалтер в університеті</h4>
+<div class="alert alert-primary">
+  Ви — бухгалтер. У вас багато листів від постачальників і співробітників.
+  Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="3" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> finance@univ.edu.ua<br />
+      <b>Тема:</b> Підтвердження платежу<br />
+      <b>Текст:</b> Перевірте вкладення перед підписанням документу.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> supplier@un1v-bill.com<br />
+      <b>Тема:</b> Заборгованість по рахунку<br />
+      <b>Текст:</b> Натисніть <a href="#">тут</a>, щоб погасити заборгованість.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 4: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="4" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit4@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 4<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious4@phish.com<br />
+      <b>Тема:</b> Термінові дії 4<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 5: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="5" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit5@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 5<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious5@phish.com<br />
+      <b>Тема:</b> Термінові дії 5<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 6: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="6" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit6@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 6<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious6@phish.com<br />
+      <b>Тема:</b> Термінові дії 6<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 7: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="7" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit7@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 7<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious7@phish.com<br />
+      <b>Тема:</b> Термінові дії 7<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 8: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="8" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit8@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 8<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious8@phish.com<br />
+      <b>Тема:</b> Термінові дії 8<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 9: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="9" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit9@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 9<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious9@phish.com<br />
+      <b>Тема:</b> Термінові дії 9<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 10: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="10" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit10@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 10<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious10@phish.com<br />
+      <b>Тема:</b> Термінові дії 10<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 11: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="11" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit11@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 11<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious11@phish.com<br />
+      <b>Тема:</b> Термінові дії 11<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 12: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="12" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit12@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 12<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious12@phish.com<br />
+      <b>Тема:</b> Термінові дії 12<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 13: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="13" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit13@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 13<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious13@phish.com<br />
+      <b>Тема:</b> Термінові дії 13<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 14: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="14" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit14@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 14<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious14@phish.com<br />
+      <b>Тема:</b> Термінові дії 14<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 15: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="15" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit15@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 15<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious15@phish.com<br />
+      <b>Тема:</b> Термінові дії 15<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 16: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="16" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit16@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 16<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious16@phish.com<br />
+      <b>Тема:</b> Термінові дії 16<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 17: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="17" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit17@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 17<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious17@phish.com<br />
+      <b>Тема:</b> Термінові дії 17<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 18: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="18" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit18@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 18<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious18@phish.com<br />
+      <b>Тема:</b> Термінові дії 18<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 19: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="19" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit19@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 19<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious19@phish.com<br />
+      <b>Тема:</b> Термінові дії 19<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+<hr />
+<h4>Історія 20: Приклад ситуації</h4>
+<div class="alert alert-primary">
+  Ви отримали кілька листів. Знайдіть підозрілі.
+</div>
+<form method="post">
+  <input type="hidden" name="story" value="20" />
+  <div class="list-group">
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="0" />
+      <b>Від:</b> legit20@example.com<br />
+      <b>Тема:</b> Легітимне повідомлення 20<br />
+      <b>Текст:</b> Стандартний текст без підозрілих посилань.
+    </div>
+    <div class="list-group-item">
+      <input type="checkbox" name="phish" value="1" />
+      <b>Від:</b> suspicious20@phish.com<br />
+      <b>Тема:</b> Термінові дії 20<br />
+      <b>Текст:</b> Перейдіть за <a href='#'>посиланням</a> та введіть дані.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Перевірити</button>
+</form>
+{% if result %}
+<div class="alert alert-info mt-3">{{ result }}</div>
+{% endif %} {% if details %}
+<div class="alert alert-secondary mt-2">{{ details|safe }}</div>
+{% endif %} {% endblock %}

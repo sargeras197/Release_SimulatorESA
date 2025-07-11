@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block title %}Тест 1: SQL Injection{% endblock %}
+{% block content %}
+<div class="alert alert-warning">
+  <b>УВАГА!</b> Це навчальна імітація вразливості SQL Injection. Не
+  використовуйте цей підхід у реальних системах!
+</div>
+<h2>Тест 1: SQL Injection</h2>
+<p>
+  Введіть логін для пошуку користувача. Спробуйте використати SQL-інʼєкцію типу
+  <code>' OR '1'='1</code>, щоб отримати секретний рядок.
+</p>
+
+<form method="post">
+  <div class="mb-3">
+    <input
+      type="text"
+      name="login"
+      class="form-control"
+      placeholder="Введіть логін або спробуйте SQL-інʼєкцію"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Пошук</button>
+</form>
+
+{% if result %}
+<div class="alert alert-info mt-3">{{ result }}</div>
+{% endif %} {% endblock %}
