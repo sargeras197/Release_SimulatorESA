@@ -585,15 +585,11 @@ def admin_report():
 
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-        # Додає адміністратора, якщо його ще нема
-        if not User.query.filter_by(username="admin").first():
-            admin = User(
-                username="admin",
-                password_hash=generate_password_hash("admin"),
-                is_admin=True,
-            )
-            db.session.add(admin)
-            db.session.commit()
-    app.run(debug=True)
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Run the Lecture Online server")
+    parser.add_argument("--host", default="127.0.0.1", help="Host address to listen on")
+    parser.add_argument("--port", type=int, default=5003, help="Port to bind")
+    args = parser.parse_args()
+
+    app.run(host=args.host, port=args.port, debug=True)
